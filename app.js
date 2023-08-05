@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-app.get("/", (req, res) => {
+app.get("/prince", (req, res) => {
   res.status(200).json({
     message: "Hello !! TESTING DB Updated",
     url: `${req.protocol}://${req.get("host")}`,
