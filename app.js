@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
+const PORT = process.env.PORT || 3000;
 
 var ContactRoutes = require("./routes/contactRoutes");
 var ReviewRoutes = require("./routes/reviewRoutes");
@@ -26,17 +27,21 @@ app.use("/", ContactRoutes);
 app.use("/", ReviewRoutes);
 app.use("/", PaymentRoutes);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
 
-app.get("/prince", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json({
     message: "Hello !! TESTING DB Updated",
     url: `${req.protocol}://${req.get("host")}`,
   });
 });
+
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404));
+});
+
+
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -48,5 +53,9 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+})
 
 module.exports = app;
